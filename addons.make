@@ -1,0 +1,4 @@
+ofxGui
+ofxAVFVideoPlayer
+ofxCv
+ofxFX

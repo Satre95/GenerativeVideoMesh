@@ -18,5 +18,12 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    
+    ofVboMesh videoMesh;
+    ofEasyCam camera;
+    ofVideoGrabber videoGrabber;
+    
+    const int videoGrabberHeight = 240;
+    const int videoGrabberWidth = 320;
 		
 };

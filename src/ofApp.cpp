@@ -2,17 +2,70 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    ofSetVerticalSync(true);
+    ofSetFrameRate(60); //target frame rate.
+    ofBackground(66,66,66);
+    
+    //Init the video grabber
+    videoGrabber.setVerbose(true);
+    videoGrabber.initGrabber(videoGrabberWidth, videoGrabberHeight);
+    
+    //iterate over the video pixels, creating a new spot for each one.
+    cout << videoGrabber.getWidth() << "\n";
+    cout << videoGrabber.getHeight() << "\n";
+    
+    for (int y = 0; y < videoGrabberHeight; y++) {
+        for (int x = 0; x < videoGrabberWidth; x++) {
+            //get the vertex at the pixel point
+            ofVec3f tempVertex = ofVec3f(x, y, 0);
+            videoMesh.addVertex(tempVertex);
+            
+            //get the color of the pixel
+            
+            ofFloatColor sampleColor(0, 0, 0);
+            videoMesh.addColor(sampleColor);
+        }
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    videoGrabber.update();
+    
+    
+    if (videoGrabber.isFrameNew()) {
+        for (int i = 0; i < videoGrabberHeight * videoGrabberWidth; i++) {
+            ofFloatColor sampleColor(videoGrabber.getPixels()[i*3]/255.f,				// r
+                                     videoGrabber.getPixels()[i*3+1]/255.f,			// g
+                                     videoGrabber.getPixels()[i*3+2]/255.f);			// b
+            
+            //now we get the vertex aat this position
+            ofVec3f tmpVec = videoMesh.getVertex(i);
+            videoMesh.setVertex(i, tmpVec); //so far this is redundant, but it will not be soon.
+            
+            videoMesh.setColor(i, sampleColor);
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    camera.begin();
+    
+    ofDisableDepthTest();
+    videoGrabber.draw(0, -videoGrabberHeight);
+    ofEnableDepthTest();
+    
+    videoMesh.drawWireframe();
+//    videoMesh.drawFaces();
+    
+    camera.end();
+    
+    //Show the FPS
+    ofSetColor(255);
+    string msg = "fps: " + ofToString(ofGetFrameRate(), 2);
+    ofDrawBitmapString(msg, 10, 20);
 }
 
 //--------------------------------------------------------------

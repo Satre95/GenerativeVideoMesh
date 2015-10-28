@@ -14,10 +14,10 @@ void ofApp::setup(){
     cout << videoGrabber.getWidth() << "\n";
     cout << videoGrabber.getHeight() << "\n";
     
-    for (int y = 0; y < videoGrabberHeight; y++) {
-        for (int x = 0; x < videoGrabberWidth; x++) {
+    for (int y = 0; y < videoGrabberHeight; y+= meshScaleY) {
+        for (int x = 0; x < videoGrabberWidth; x+= meshScaleX) {
             //get the vertex at the pixel point
-            ofVec3f tempVertex = ofVec3f(x, y, 0);
+            ofVec3f tempVertex = ofVec3f(x * (1 / meshScaleX), y * (1 / meshScaleY), 0);
             videoMesh.addVertex(tempVertex);
             
             //get the color of the pixel
@@ -36,9 +36,9 @@ void ofApp::update(){
     
     if (videoGrabber.isFrameNew()) {
         for (int i = 0; i < videoGrabberHeight * videoGrabberWidth; i++) {
-            ofFloatColor sampleColor(videoGrabber.getPixels()[i*3]/255.f,				// r
-                                     videoGrabber.getPixels()[i*3+1]/255.f,			// g
-                                     videoGrabber.getPixels()[i*3+2]/255.f);			// b
+            ofFloatColor sampleColor(videoGrabber.getPixels()[i*3]/255.f * (1 / meshScaleY) * (1 / meshScaleX),				// r
+                                     videoGrabber.getPixels()[i*3+1]/255.f * (1 / meshScaleY) * (1 / meshScaleX),			// g
+                                     videoGrabber.getPixels()[i*3+2]/255.f * (1 / meshScaleY) * (1 / meshScaleX));			// b
             
             //now we get the vertex aat this position
             ofVec3f tmpVec = videoMesh.getVertex(i);
@@ -53,12 +53,12 @@ void ofApp::update(){
 void ofApp::draw(){
     camera.begin();
     
-    ofDisableDepthTest();
-    videoGrabber.draw(0, -videoGrabberHeight);
-    ofEnableDepthTest();
+    //    ofDisableDepthTest();
+    //    videoGrabber.draw(0, -videoGrabberHeight);
+    //    ofEnableDepthTest();
     
     videoMesh.drawWireframe();
-//    videoMesh.drawFaces();
+    //    videoMesh.drawFaces();
     
     camera.end();
     
@@ -70,45 +70,45 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::gotMessage(ofMessage msg){
-
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
+    
 }

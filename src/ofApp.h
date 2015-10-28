@@ -23,7 +23,9 @@ class ofApp : public ofBaseApp{
     ofEasyCam camera;
     ofVideoGrabber videoGrabber;
     
-    const int videoGrabberHeight = 240;
-    const int videoGrabberWidth = 320;
-		
+    const int videoGrabberWidth = 1000;
+    const int videoGrabberHeight = 1000;
+    
+    const float meshScaleX = 0.25;
+    const float meshScaleY = 0.25;
 };

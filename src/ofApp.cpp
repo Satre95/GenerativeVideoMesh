@@ -16,7 +16,7 @@ void ofApp::setup(){
     //init the shader
     shader.load("shaders/shader.vert", "shaders/shader.frag");
     
-    plane.set(videoGrabberWidth, videoGrabberHeight, 50, 50);
+    plane.set(videoGrabberWidth, videoGrabberHeight, 500, 500);
     plane.mapTexCoordsFromTexture(videoGrabber.getTextureReference());
 }
 
@@ -37,14 +37,16 @@ void ofApp::draw(){
     
     float percentY = mouseY / (float)ofGetHeight();
     percentY = ofClamp(percentY, 0, 1.f);
-    //map the percent to be between -90 and 90 degrees
-    float angle = ofMap(percentY, 0, 1, -90, 90);
+    //map the percent to be between -60 and 60 degrees
+    float angle = ofMap(percentY, 0, 1, -60, 60);
     ofRotate(angle, 1, 0, 0);
     
     plane.drawWireframe();
     
     ofPopMatrix();
     shader.end();
+    
+//    videoGrabber.draw(0, 0);
 
     
     //Show the FPS

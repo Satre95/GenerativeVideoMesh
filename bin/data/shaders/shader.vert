@@ -15,14 +15,19 @@ void main()
     
     vec4 modifiedPosition = modelViewProjectionMatrix * position;
     
-    float scale = 500;
+    float scale = 100;
     
-    //use the average of teh RGB values to affect the shader displacement
+    //use the each RGB value to influence the displacement in the XYZ directions
     vec4 tex1 = texture(tex0, texcoord);
-    float displacementY = (tex1.r + tex1.g + tex1.b) / 3.f;
+    float offset = 0.5;
+    float displacementX = tex1.r - offset;
+    float displacementY = tex1.g - offset;
+    float displacementZ = tex1.b - offset;
     
     //modify the y position using the scale and displacement
+    modifiedPosition.x += scale * displacementX;
     modifiedPosition.y += scale * displacementY;
+    modifiedPosition.z += scale * displacementZ;
     
     //output the new position
     gl_Position = modifiedPosition;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxFX.h"
 
 class ofApp : public ofBaseApp{
 
@@ -20,12 +21,18 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
     ofVboMesh videoMesh;
-    ofEasyCam camera;
+    ofEasyCam easyCam;
     ofVideoGrabber videoGrabber;
     
     const int videoGrabberWidth = 1000;
-    const int videoGrabberHeight = 1000;
+    const int videoGrabberHeight = 800;
     
     const float meshScaleX = 0.25;
     const float meshScaleY = 0.25;
+    
+    ofShader shader;
+    
+    ofFbo mainFbo;
+    
+    ofPlanePrimitive plane;
 };

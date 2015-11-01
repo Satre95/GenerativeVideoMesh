@@ -37,6 +37,7 @@ void ofApp::update(){
 
 //-------------------------------------------------------------
 void ofApp::draw(){
+    
     if (useLiveVideoStream) {
         videoGrabber.getTextureReference().bind();
     } else {
@@ -45,7 +46,7 @@ void ofApp::draw(){
     easyCam.begin();
     
     shader.begin();
-    
+    shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
     ofPushMatrix();
 
 //    ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);

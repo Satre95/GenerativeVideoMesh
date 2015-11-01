@@ -35,4 +35,8 @@ class ofApp : public ofBaseApp{
     ofFbo mainFbo;
     
     ofPlanePrimitive plane;
+    ofVideoPlayer videoPlayer;
+    
+    bool useLiveVideoStream = true;
+    
 };

@@ -6,9 +6,15 @@ void ofApp::setup(){
     ofSetFrameRate(60); //target frame rate.
     ofBackground(66,66,66);
     
-    //Init the video grabber
-    videoGrabber.setVerbose(false);
-    videoGrabber.initGrabber(videoGrabberWidth, videoGrabberHeight);
+    if (useLiveVideoStream) {
+        //Init the video grabber
+        videoGrabber.setVerbose(false);
+        videoGrabber.initGrabber(videoGrabberWidth, videoGrabberHeight);
+    } else {
+        //Init the video player
+        videoPlayer.loadMovie("video.mp4");
+        videoPlayer.play();
+    }
 
     //Init the video grabber
     mainFbo.allocate(videoGrabberWidth, videoGrabberHeight);
@@ -22,12 +28,20 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    videoGrabber.update();
+    if (useLiveVideoStream) {
+        videoGrabber.update();
+    } else {
+        videoPlayer.update();
+    }
 }
 
 //-------------------------------------------------------------
 void ofApp::draw(){
-    videoGrabber.getTextureReference().bind();
+    if (useLiveVideoStream) {
+        videoGrabber.getTextureReference().bind();
+    } else {
+        videoPlayer.getTextureReference().bind();
+    }
     easyCam.begin();
     
     shader.begin();

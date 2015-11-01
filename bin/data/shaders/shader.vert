@@ -255,25 +255,29 @@ vec4 calculate2DNoiseDisplacementVector( vec4 tex1) {
 }
 */
 vec4 calculate3DNoiseDisplacementVector( vec4 tex1 ) {
-    float noiseScale = 20.0;
+    float noiseScale = 100.0;
     float noiseStrength = 100.0;
     float scale = 100.0;
     
     
-    vec3 noiseVecX = vec3( tex1.r/noiseScale, tex1.a/noiseScale, elapsedTime/noiseScale);
+    vec3 noiseVecX = vec3( tex1.r/noiseScale, texcoord.x/noiseScale, elapsedTime/noiseScale);
     float displacementX = cos( snoise( noiseVecX ) * noiseStrength) * scale;
     
-    vec3 noiseVecY = vec3( tex1.g / noiseScale, tex1.a / noiseScale, elapsedTime/noiseScale);
+    vec3 noiseVecY = vec3( tex1.g / noiseScale, texcoord.y/ noiseScale, elapsedTime/noiseScale);
     float displacementY = sin( snoise( noiseVecY) * noiseStrength ) * scale;
     
-    vec3 noiseVecZ = noiseVecY / noiseVecX;
-//    float displacementZ = tan( cnoise(noiseVecZ) * noiseStrength );
-    float displacementZ = 0.0;
+    vec3 noiseVecZ = vec3( tex1.b / noiseStrength, texcoord.y / texcoord.x / noiseScale, elapsedTime/noiseScale);
+    float displacementZ = cos( snoise(noiseVecZ) * noiseStrength );
+//    float displacementZ = 0.0;
     
     //modify the y position using the scale and displacement
     vec4 displacement = vec4( displacementX, displacementY, displacementZ, 0.0);
     
     return displacement;
+}
+
+vec4 modifyDisplacementVectorWithPosition( vec4 displacement, vec4 position ) {
+    return displacement / position;
 }
 
 void main()
@@ -286,7 +290,9 @@ void main()
     //use the each RGB value to influence the displacement in the XYZ directions
     vec4 tex1 = texture(tex0, texcoord);
     
+//    modifiedPosition += modifyDisplacementVectorWithPosition( calculate3DNoiseDisplacementVector( tex1), modifiedPosition) ;
     modifiedPosition += calculate3DNoiseDisplacementVector( tex1);
+    
     //output the new position
     gl_Position = modifiedPosition;
     

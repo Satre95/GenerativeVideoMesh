@@ -24,8 +24,8 @@ class ofApp : public ofBaseApp{
     ofEasyCam easyCam;
     ofVideoGrabber videoGrabber;
     
-    const int videoGrabberWidth = 800;
-    const int videoGrabberHeight = 800;
+    const int videoGrabberWidth = 1920;
+    const int videoGrabberHeight = 1080;
     
     const float meshScaleX = 0.25;
     const float meshScaleY = 0.25;
@@ -35,6 +35,7 @@ class ofApp : public ofBaseApp{
     ofFbo mainFbo;
     
     ofPlanePrimitive plane;
+    ofSpherePrimitive sphere;
     ofVideoPlayer videoPlayer;
     
     bool useLiveVideoStream = true;

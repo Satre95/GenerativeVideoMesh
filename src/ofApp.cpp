@@ -24,6 +24,8 @@ void ofApp::setup(){
     
     plane.set(videoGrabberWidth, videoGrabberHeight, 100, 100);
     plane.mapTexCoordsFromTexture(videoGrabber.getTextureReference());
+    
+    sphere.setRadius(max(videoGrabberWidth, videoGrabberHeight) / 2.f);
 }
 
 //--------------------------------------------------------------
@@ -33,16 +35,29 @@ void ofApp::update(){
     } else {
         videoPlayer.update();
     }
+    
+    //calculate noise
+    float noiseX = ofMap(mouseX, 0, ofGetWidth(), 0, 0.1);
+    float noiseVel = ofGetElapsedTimef();
+    float noiseStrength = 1;
+    float noiseValue = ofNoise(noiseX, noiseVel) * noiseStrength;
+    shader.setUniform1f("programNoise", noiseValue);
 }
+
 
 //-------------------------------------------------------------
 void ofApp::draw(){
-    
     if (useLiveVideoStream) {
         videoGrabber.getTextureReference().bind();
     } else {
         videoPlayer.getTextureReference().bind();
     }
+    mainFbo.begin();
+    ofColor centerColor = ofColor(85, 78, 68);
+    ofColor edgeColor(0, 0, 0);
+    ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
+    
+    
     easyCam.begin();
     
     shader.begin();
@@ -65,6 +80,8 @@ void ofApp::draw(){
     
 //    videoGrabber.draw(0, 0);
     easyCam.end();
+    mainFbo.end();
+    mainFbo.draw(0, 0);
     
     
     //Show the FPS

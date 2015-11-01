@@ -3,14 +3,14 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "EBC5E2A29F125165AEBCAA19E4D8FC06D99494BA" : 0,
     "B7CCA6A8C889ED4C803FBF307564FD139754E943" : 0,
+    "EBC5E2A29F125165AEBCAA19E4D8FC06D99494BA" : 0,
     "37526DA425E5430474A14FBFA1BC4525160B5FC1" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BA49D9C3-19BC-497B-9FFB-1B7347C016E9",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "EBC5E2A29F125165AEBCAA19E4D8FC06D99494BA" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxAVFVideoPlayer",
     "B7CCA6A8C889ED4C803FBF307564FD139754E943" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxFX",
+    "EBC5E2A29F125165AEBCAA19E4D8FC06D99494BA" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxAVFVideoPlayer",
     "37526DA425E5430474A14FBFA1BC4525160B5FC1" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxCv"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "GenerativeVideoMesh",

@@ -16,7 +16,7 @@ void ofApp::setup(){
     //init the shader
     shader.load("shaders/shader.vert", "shaders/shader.frag");
     
-    plane.set(videoGrabberWidth, videoGrabberHeight, 500, 500);
+    plane.set(videoGrabberWidth, videoGrabberHeight, 100, 100);
     plane.mapTexCoordsFromTexture(videoGrabber.getTextureReference());
 }
 
@@ -28,26 +28,29 @@ void ofApp::update(){
 //-------------------------------------------------------------
 void ofApp::draw(){
     videoGrabber.getTextureReference().bind();
+    easyCam.begin();
     
     shader.begin();
     
     ofPushMatrix();
+
+//    ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
     
-    ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
-    
-    float percentY = mouseY / (float)ofGetHeight();
-    percentY = ofClamp(percentY, 0, 1.f);
-    //map the percent to be between -60 and 60 degrees
-    float angle = ofMap(percentY, 0, 1, -60, 60);
-    ofRotate(angle, 1, 0, 0);
+//    float percentY = mouseY / (float)ofGetHeight();
+//    percentY = ofClamp(percentY, 0, 1.f);
+//    //map the percent to be between -60 and 60 degrees
+//    float angle = ofMap(percentY, 0, 1, -60, 60);
+//    ofRotate(angle, 1, 0, 0);
     
     plane.drawWireframe();
     
     ofPopMatrix();
+    
     shader.end();
     
 //    videoGrabber.draw(0, 0);
-
+    easyCam.end();
+    
     
     //Show the FPS
     ofSetColor(255);

@@ -6,6 +6,9 @@ void ofApp::setup(){
     ofSetFrameRate(60); //target frame rate.
     ofBackground(66,66,66);
     
+    videoGrabberHeight = ofGetHeight();
+    videoGrabberWidth = ofGetWidth() / 2;
+    
     if (useLiveVideoStream) {
         //Init the video grabber
         videoGrabber.setVerbose(false);
@@ -17,8 +20,8 @@ void ofApp::setup(){
     }
 
     //Init the video grabber
-    mainFbo.allocate(videoGrabberWidth, videoGrabberHeight);
-    
+    planeFbo.allocate(videoGrabberWidth, videoGrabberHeight);
+    sphereFbo.allocate(videoGrabberWidth, videoGrabberHeight);
     //init the shader
     shader.load("shaders/shader.vert", "shaders/shader.frag");
     
@@ -26,6 +29,8 @@ void ofApp::setup(){
     plane.mapTexCoordsFromTexture(videoGrabber.getTextureReference());
     
     sphere.setRadius(max(videoGrabberWidth, videoGrabberHeight) / 2.f);
+    sphere.setResolution(600);
+    sphere.mapTexCoordsFromTexture(videoGrabber.getTextureReference());
 }
 
 //--------------------------------------------------------------
@@ -47,12 +52,23 @@ void ofApp::update(){
 
 //-------------------------------------------------------------
 void ofApp::draw(){
+    drawPlaneMesh();
+    drawSphereMesh();
+    
+    //Show the FPS
+    ofSetColor(255);
+    string msg = "fps: " + ofToString(ofGetFrameRate(), 2);
+    ofDrawBitmapString(msg, 10, 20);
+}
+
+void ofApp::drawPlaneMesh() {
+    planeFbo.begin();
     if (useLiveVideoStream) {
         videoGrabber.getTextureReference().bind();
     } else {
         videoPlayer.getTextureReference().bind();
     }
-    mainFbo.begin();
+    ofClear(0, 0, 0);
     ofColor centerColor = ofColor(85, 78, 68);
     ofColor edgeColor(0, 0, 0);
     ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
@@ -61,33 +77,53 @@ void ofApp::draw(){
     easyCam.begin();
     
     shader.begin();
-    shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
-    ofPushMatrix();
-
-//    ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
     
-//    float percentY = mouseY / (float)ofGetHeight();
-//    percentY = ofClamp(percentY, 0, 1.f);
-//    //map the percent to be between -60 and 60 degrees
-//    float angle = ofMap(percentY, 0, 1, -60, 60);
-//    ofRotate(angle, 1, 0, 0);
+    shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
     
     plane.drawWireframe();
     
-    ofPopMatrix();
     
     shader.end();
     
-//    videoGrabber.draw(0, 0);
+    //    videoGrabber.draw(0, 0);
+    
     easyCam.end();
-    mainFbo.end();
-    mainFbo.draw(0, 0);
+    //    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight() / 2);
+    planeFbo.end();
+    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight());
+}
+
+void ofApp::drawSphereMesh() {
+    sphereFbo.begin();
+    if (useLiveVideoStream) {
+        videoGrabber.getTextureReference().bind();
+    } else {
+        videoPlayer.getTextureReference().bind();
+    }
+    
+    ofClear(0, 0, 0);
+    ofColor centerColor = ofColor(85, 78, 68);
+    ofColor edgeColor(0, 0, 0);
+    ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
     
     
-    //Show the FPS
-    ofSetColor(255);
-    string msg = "fps: " + ofToString(ofGetFrameRate(), 2);
-    ofDrawBitmapString(msg, 10, 20);
+    easyCam.begin();
+    
+    shader.begin();
+    
+    shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
+    
+    sphere.drawVertices();
+    
+    
+    shader.end();
+    
+    //    videoGrabber.draw(0, 0);
+    
+    easyCam.end();
+    //    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight() / 2);
+    sphereFbo.end();
+    sphereFbo.draw(ofGetWidth() / 2, 0, ofGetWidth() / 2, ofGetHeight());
 }
 
 //--------------------------------------------------------------

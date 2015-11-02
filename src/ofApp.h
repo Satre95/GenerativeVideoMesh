@@ -19,20 +19,23 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    void drawPlaneMesh();
+    void drawSphereMesh();
     
     ofVboMesh videoMesh;
     ofEasyCam easyCam;
     ofVideoGrabber videoGrabber;
     
-    const int videoGrabberWidth = 1920;
-    const int videoGrabberHeight = 1080;
+    int videoGrabberWidth = 800;
+    int videoGrabberHeight = 800;
     
     const float meshScaleX = 0.25;
     const float meshScaleY = 0.25;
     
     ofShader shader;
     
-    ofFbo mainFbo;
+    ofFbo planeFbo;
+    ofFbo sphereFbo;
     
     ofPlanePrimitive plane;
     ofSpherePrimitive sphere;

@@ -20,12 +20,12 @@ void ofApp::setup(){
     }
 
     //Init the video grabber
-    planeFbo.allocate(videoGrabberWidth, videoGrabberHeight);
+    planeFbo.allocate(ofGetWidth(), ofGetHeight());
     sphereFbo.allocate(videoGrabberWidth, videoGrabberHeight);
     //init the shader
     shader.load("shaders/shader.vert", "shaders/shader.frag");
     
-    plane.set(videoGrabberWidth, videoGrabberHeight, 100, 100);
+    plane.set(videoGrabberWidth, videoGrabberHeight,80, 80);
     plane.mapTexCoordsFromTexture(videoGrabber.getTextureReference());
     
     sphere.setRadius(max(videoGrabberWidth, videoGrabberHeight) / 2.f);
@@ -53,11 +53,11 @@ void ofApp::update(){
 //-------------------------------------------------------------
 void ofApp::draw(){
     drawPlaneMesh();
-    drawSphereMesh();
+//    drawSphereMesh();
     
     //Show the FPS
     ofSetColor(255);
-    string msg = "fps: " + ofToString(ofGetFrameRate(), 2);
+    string msg = "FPS: " + ofToString(ofGetFrameRate(), 2);
     ofDrawBitmapString(msg, 10, 20);
 }
 
@@ -80,17 +80,18 @@ void ofApp::drawPlaneMesh() {
     
     shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
     
-    plane.drawWireframe();
-    
+//    plane.drawWireframe();
+//    plane.drawVertices();
+    plane.drawFaces();
     
     shader.end();
     
     //    videoGrabber.draw(0, 0);
     
     easyCam.end();
-    //    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight() / 2);
     planeFbo.end();
-    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight());
+//    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight());
+    planeFbo.draw(0, 0);
 }
 
 void ofApp::drawSphereMesh() {
@@ -114,6 +115,7 @@ void ofApp::drawSphereMesh() {
     shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
     
     sphere.drawVertices();
+//    sphere.drawWireframe();
     
     
     shader.end();
@@ -128,6 +130,20 @@ void ofApp::drawSphereMesh() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    if (key == 's' || key == 'S') {
+        ofPixels pixels1;
+        planeFbo.readToPixels(pixels1);
+        ofImage image1;
+        image1.setFromPixels(pixels1);
+        image1.saveImage("Plane.png");
+        
+        
+        ofPixels pixels2;
+        sphereFbo.readToPixels(pixels2);
+        ofImage image2;
+        image2.setFromPixels(pixels2);
+        image2.saveImage("Sphere.png");
+    }
     
 }
 

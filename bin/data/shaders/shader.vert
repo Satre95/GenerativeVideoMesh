@@ -9,6 +9,7 @@ in vec2 texcoord;
 out vec2 texCoordVarying;
 uniform sampler2DRect tex0;
 uniform float elapsedTime;
+uniform float scale;
 
 
 //-----------------------------------
@@ -143,7 +144,7 @@ vec4 calculate2DNoiseDisplacementVector( vec4 tex1) {
 vec4 calculate3DNoiseDisplacementVector( vec4 tex1 ) {
     float noiseScale = 100.0;
     float noiseStrength = 100.0;
-    float scale = 100.0;
+
     
     
     vec3 noiseVecX = vec3( tex1.r/noiseScale, texcoord.x/noiseScale, elapsedTime/noiseScale);

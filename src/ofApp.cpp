@@ -31,6 +31,13 @@ void ofApp::setup(){
     sphere.setRadius(max(videoGrabberWidth, videoGrabberHeight) / 2.f);
     sphere.setResolution(600);
     sphere.mapTexCoordsFromTexture(videoGrabber.getTextureReference());
+    
+    vector <ofSerialDeviceInfo> deviceList = serialPort.getDeviceList();
+//    serialPort.setup(deviceList[0].getDeviceName(), 9600);
+//    serialPort.flush();
+    
+    arduino.connect(deviceList[0].getDeviceName());
+    ofLogNotice() << "Arduino Initialized: " << arduino.isInitialized();
 }
 
 //--------------------------------------------------------------
@@ -40,6 +47,8 @@ void ofApp::update(){
     } else {
         videoPlayer.update();
     }
+    
+    scale = readScaleFromSerialPort();
     
     //calculate noise
     float noiseX = ofMap(mouseX, 0, ofGetWidth(), 0, 0.1);
@@ -79,10 +88,13 @@ void ofApp::drawPlaneMesh() {
     shader.begin();
     
     shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
+    float constrainedScale = ofClamp(scale, 1, 1023);
+    float mappedScale = ofMap(constrainedScale, 1, 1023, 1, 100);
+    shader.setUniform1f("scale", mappedScale);
     
-//    plane.drawWireframe();
+    plane.drawWireframe();
 //    plane.drawVertices();
-    plane.drawFaces();
+//    plane.drawFaces();
     
     shader.end();
     
@@ -114,7 +126,7 @@ void ofApp::drawSphereMesh() {
     
     shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
     
-    sphere.drawVertices();
+//    sphere.drawVertices();
 //    sphere.drawWireframe();
     
     
@@ -145,6 +157,21 @@ void ofApp::keyPressed(int key){
         image2.saveImage("Sphere.png");
     }
     
+}
+
+int ofApp::readScaleFromSerialPort() {
+//    float scale = serialPort.readByte();
+//    ofLogNotice() << "Scale: " << scale << "\n";
+//    return scale;
+    
+    if (arduino.isArduinoReady()) {
+        arduino.update();
+        int currScale = arduino.getAnalog(0);
+        ofLogNotice() << "Scale: " << currScale << "\n";
+        return currScale;
+    }
+    
+    return 1;
 }
 
 //--------------------------------------------------------------

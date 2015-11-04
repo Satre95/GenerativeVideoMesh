@@ -19,8 +19,10 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    
     void drawPlaneMesh();
     void drawSphereMesh();
+    int readScaleFromSerialPort();
     
     ofVboMesh videoMesh;
     ofEasyCam easyCam;
@@ -42,5 +44,9 @@ class ofApp : public ofBaseApp{
     ofVideoPlayer videoPlayer;
     
     bool useLiveVideoStream = true;
+    int scale;
+    
+    ofSerial serialPort;
+    ofArduino arduino;
     
 };

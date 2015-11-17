@@ -11,6 +11,7 @@ uniform sampler2DRect tex0;
 uniform float elapsedTime;
 uniform float programNoise;
 
+/*
 float cubicPulse( float c, float w, float x ){
     x = abs(x - c);
     if( x>w ) return 0.0;
@@ -23,7 +24,8 @@ float pcurve( float x, float a, float b )
     float k = pow(a+b,a+b) / (pow(a,a)*pow(b,b));
     return k * pow( x, a ) * pow( 1.0-x, b );
 }
-
+*/
+ 
 void main() {
     
     vec4 mainTexture = texture( tex0, texCoordVarying);
@@ -31,9 +33,13 @@ void main() {
     float scale = 10;
     float coordCalc = texCoordVarying.y / texCoordVarying.x * scale;
     
-//    mainTexture.r = pcurve( mainTexture.r, coordCalc, mainTexture.a);
-//    mainTexture.g = pcurve( mainTexture.g, coordCalc, mainTexture.a);
-//    mainTexture.b = pcurve( mainTexture.b, coordCalc, mainTexture.a);
+    float redPct = abs(sin(elapsedTime)/(mainTexture.r + 1));
+    float greenPct = abs(sin(elapsedTime)/(mainTexture.g + 1));
+    float bluePct = abs(sin(elapsedTime) / (mainTexture.b + 1));
+
+    mainTexture.r = mix( mainTexture.r, mainTexture.g, redPct);
+    mainTexture.g = mix( mainTexture.g, mainTexture.b, greenPct);
+    mainTexture.b = mix( mainTexture.b, mainTexture.r, bluePct);
     
     outputColor = mainTexture;
 }

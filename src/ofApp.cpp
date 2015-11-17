@@ -126,7 +126,7 @@ void ofApp::drawSphereMesh() {
     
     shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
     
-//    sphere.drawVertices();
+    sphere.drawVertices();
 //    sphere.drawWireframe();
     
     

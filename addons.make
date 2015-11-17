@@ -1,4 +1,4 @@
-ofxGui
 ofxAVFVideoPlayer
 ofxCv
 ofxFX
+ofxGui

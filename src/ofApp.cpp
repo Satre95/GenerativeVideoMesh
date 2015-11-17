@@ -21,11 +21,11 @@ void ofApp::setup(){
     shader.load("shaders/shader.vert", "shaders/shader.frag");
     
     plane.set(videoGrabberWidth, videoGrabberHeight,80, 80);
-    plane.mapTexCoordsFromTexture(videoGrabber.getTextureReference());
+    plane.mapTexCoordsFromTexture(videoGrabber.getTexture());
     
     sphere.setRadius(max(videoGrabberWidth, videoGrabberHeight) / 2.f);
     sphere.setResolution(600);
-    sphere.mapTexCoordsFromTexture(videoGrabber.getTextureReference());
+    sphere.mapTexCoordsFromTexture(videoGrabber.getTexture());
     
     vector <ofSerialDeviceInfo> deviceList = serialPort.getDeviceList();
 //    serialPort.setup(deviceList[0].getDeviceName(), 9600);
@@ -63,7 +63,7 @@ void ofApp::draw(){
 
 void ofApp::drawPlaneMesh() {
     planeFbo.begin();
-    videoGrabber.getTextureReference().bind();
+    videoGrabber.getTexture().bind();
 
     ofClear(0, 0, 0);
     ofColor centerColor = ofColor(85, 78, 68);
@@ -97,7 +97,7 @@ void ofApp::drawPlaneMesh() {
 void ofApp::drawSphereMesh() {
     sphereFbo.begin();
 
-    videoGrabber.getTextureReference().bind();
+    videoGrabber.getTexture().bind();
     
     
     ofClear(0, 0, 0);
@@ -133,14 +133,14 @@ void ofApp::keyPressed(int key){
         planeFbo.readToPixels(pixels1);
         ofImage image1;
         image1.setFromPixels(pixels1);
-        image1.saveImage("Plane.png");
+        image1.save("Plane.png", OF_IMAGE_QUALITY_BEST);
         
         
         ofPixels pixels2;
         sphereFbo.readToPixels(pixels2);
         ofImage image2;
         image2.setFromPixels(pixels2);
-        image2.saveImage("Sphere.png");
+        image2.save("Sphere.png", OF_IMAGE_QUALITY_BEST);
     }
     
 }

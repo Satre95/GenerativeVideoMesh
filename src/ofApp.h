@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxFX.h"
 
 class ofApp : public ofBaseApp{
 
@@ -41,7 +40,6 @@ class ofApp : public ofBaseApp{
     
     ofPlanePrimitive plane;
     ofSpherePrimitive sphere;
-    ofVideoPlayer videoPlayer;
     
     bool useLiveVideoStream = true;
     int scale;

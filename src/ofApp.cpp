@@ -9,15 +9,10 @@ void ofApp::setup(){
     videoGrabberHeight = ofGetHeight();
     videoGrabberWidth = ofGetWidth() / 2;
     
-    if (useLiveVideoStream) {
-        //Init the video grabber
-        videoGrabber.setVerbose(false);
-        videoGrabber.initGrabber(videoGrabberWidth, videoGrabberHeight);
-    } else {
-        //Init the video player
-        videoPlayer.loadMovie("video.mp4");
-        videoPlayer.play();
-    }
+
+    //Init the video grabber
+    videoGrabber.setVerbose(false);
+    videoGrabber.initGrabber(videoGrabberWidth, videoGrabberHeight);
 
     //Init the video grabber
     planeFbo.allocate(ofGetWidth(), ofGetHeight());
@@ -42,11 +37,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    if (useLiveVideoStream) {
-        videoGrabber.update();
-    } else {
-        videoPlayer.update();
-    }
+    videoGrabber.update();
     
     scale = readScaleFromSerialPort();
     
@@ -72,11 +63,8 @@ void ofApp::draw(){
 
 void ofApp::drawPlaneMesh() {
     planeFbo.begin();
-    if (useLiveVideoStream) {
-        videoGrabber.getTextureReference().bind();
-    } else {
-        videoPlayer.getTextureReference().bind();
-    }
+    videoGrabber.getTextureReference().bind();
+
     ofClear(0, 0, 0);
     ofColor centerColor = ofColor(85, 78, 68);
     ofColor edgeColor(0, 0, 0);
@@ -108,11 +96,9 @@ void ofApp::drawPlaneMesh() {
 
 void ofApp::drawSphereMesh() {
     sphereFbo.begin();
-    if (useLiveVideoStream) {
-        videoGrabber.getTextureReference().bind();
-    } else {
-        videoPlayer.getTextureReference().bind();
-    }
+
+    videoGrabber.getTextureReference().bind();
+    
     
     ofClear(0, 0, 0);
     ofColor centerColor = ofColor(85, 78, 68);

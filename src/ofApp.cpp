@@ -23,7 +23,7 @@ void ofApp::setup(){
     plane.set(videoGrabberWidth, videoGrabberHeight,80, 80);
     plane.mapTexCoordsFromTexture(videoGrabber.getTexture());
     
-    sphere.setRadius(max(videoGrabberWidth, videoGrabberHeight) / 2.f);
+    sphere.setRadius(max(videoGrabberWidth , videoGrabberHeight) / 2.0f);
     sphere.setResolution(600);
     sphere.mapTexCoordsFromTexture(videoGrabber.getTexture());
     
@@ -33,6 +33,8 @@ void ofApp::setup(){
     
     arduino.connect(deviceList[0].getDeviceName());
     ofLogNotice() << "Arduino Initialized: " << arduino.isInitialized();
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -80,9 +82,9 @@ void ofApp::drawPlaneMesh() {
     float mappedScale = ofMap(constrainedScale, 1, 1023, 1, 100);
     shader.setUniform1f("scale", mappedScale);
     
-    plane.drawWireframe();
+//    plane.drawWireframe();
 //    plane.drawVertices();
-//    plane.drawFaces();
+    plane.drawFaces();
     
     shader.end();
     
@@ -123,7 +125,7 @@ void ofApp::drawSphereMesh() {
     easyCam.end();
     //    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight() / 2);
     sphereFbo.end();
-    sphereFbo.draw(ofGetWidth() / 2, 0, ofGetWidth() / 2, ofGetHeight());
+    sphereFbo.draw(0, 0);
 }
 
 //--------------------------------------------------------------

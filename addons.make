@@ -1,4 +1,7 @@
-ofxAVFVideoPlayer
-ofxCv
-ofxFX
-ofxGui
+ofxHTTP
+ofxIO
+ofxJSON
+ofxMediaType
+ofxNetworkUtils
+ofxSSLManager
+ofxTaskQueue

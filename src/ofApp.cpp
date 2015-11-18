@@ -34,7 +34,19 @@ void ofApp::setup(){
     arduino.connect(deviceList[0].getDeviceName());
     ofLogNotice() << "Arduino Initialized: " << arduino.isInitialized();
     
+    ofxJSONElement forecastPayload;
+    string requestURL = forecastURL + latitude + "," + longitude + "," + to_string(ofGetUnixTime());;
+    ofLog() << requestURL;
     
+    bool parsingSuccessful = forecastPayload.open(requestURL);
+    
+    
+    
+    if (parsingSuccessful) {
+        ofLogNotice() << forecastPayload.getRawString();
+    } else {
+        ofLogNotice() << "Failed to parse JSON";
+    }
 }
 
 //--------------------------------------------------------------
@@ -151,13 +163,14 @@ int ofApp::readScaleFromSerialPort() {
 //    float scale = serialPort.readByte();
 //    ofLogNotice() << "Scale: " << scale << "\n";
 //    return scale;
-    
+    /*
     if (arduino.isArduinoReady()) {
         arduino.update();
         int currScale = arduino.getAnalog(0);
         ofLogNotice() << "Scale: " << currScale << "\n";
         return currScale;
     }
+    */
     
     return 1;
 }

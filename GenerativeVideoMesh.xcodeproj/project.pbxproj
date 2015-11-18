@@ -979,8 +979,8 @@
 			children = (
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
-				969C4EF61BFBE2D200BD1405 /* shaders */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
+				969C4EF61BFBE2D200BD1405 /* shaders */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

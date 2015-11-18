@@ -49,4 +49,11 @@ class ofApp : public ofBaseApp{
     ofSerial serialPort;
     ofArduino arduino;
     
+    const string forecastURL = "https://api.forecast.io/forecast/6d5469fb52edef1548f96fa095fb2c7c/";
+    string latitude = "42.375374";
+    string longitude = "-71.055414";
+    
+    
+private:
+    const string forecastAPIKey = "6d5469fb52edef1548f96fa095fb2c7c";
 };

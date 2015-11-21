@@ -32,15 +32,14 @@ void ofApp::setup(){
 //    serialPort.flush();
     
     arduino.connect(deviceList[0].getDeviceName());
-    ofLogNotice() << "Arduino Initialized: " << arduino.isInitialized();
+//    ofLogNotice() << "Arduino Initialized: " << arduino.isInitialized();
     
     ofxJSONElement forecastPayload;
     string requestURL = forecastURL + latitude + "," + longitude + "," + to_string(ofGetUnixTime());;
-    ofLog() << requestURL;
+//    ofLog() << requestURL;
     
     bool parsingSuccessful = forecastPayload.open(requestURL);
-    
-    
+
     
     if (parsingSuccessful) {
         ofLogNotice() << forecastPayload.getRawString();
@@ -94,9 +93,9 @@ void ofApp::drawPlaneMesh() {
     float mappedScale = ofMap(constrainedScale, 1, 1023, 1, 100);
     shader.setUniform1f("scale", mappedScale);
     
-//    plane.drawWireframe();
+    plane.drawWireframe();
 //    plane.drawVertices();
-    plane.drawFaces();
+//    plane.drawFaces();
     
     shader.end();
     

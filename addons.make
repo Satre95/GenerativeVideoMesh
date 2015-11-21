@@ -1,7 +1,3 @@
-ofxHTTP
-ofxIO
+ofxCv
+ofxGui
 ofxJSON
-ofxMediaType
-ofxNetworkUtils
-ofxSSLManager
-ofxTaskQueue

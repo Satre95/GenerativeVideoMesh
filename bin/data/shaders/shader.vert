@@ -167,6 +167,17 @@ vec4 modifyDisplacementVectorWithPosition( vec4 displacement, vec4 position ) {
     return displacement / position;
 }
 
+float rand( float x) {
+    return fract(sin(x)*1000000.0);
+}
+
+float noise(float x) {
+    float i = floor( x);
+    float f = fract( x );
+    
+    return mix( rand(i), rand(i + 1.0), smoothstep(0., 1., f));
+}
+
 void main()
 {
     

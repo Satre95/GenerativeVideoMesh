@@ -20,6 +20,7 @@
 		67530C290718EC5B65342F59 /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F04AECF6297FA2BABD15172A /* ofxSliderGroup.cpp */; };
 		92CED5F9607D9992C96F4BA6 /* ofxSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD483560B2C15E41359B6A76 /* ofxSlider.cpp */; };
 		952D207A069581CB8D6F7F78 /* ETF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD024E5852D84FC3E6BBC533 /* ETF.cpp */; };
+		96DC1F911C02B89200C9E697 /* RecognizedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC1F8F1C02B89200C9E697 /* RecognizedObject.cpp */; };
 		98BAF301D20180B4163D72AE /* ofxCvHaarFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EDBE818BD6BBE507DD6B35 /* ofxCvHaarFinder.cpp */; };
 		A0C55F71F64D49DE795653AE /* Wrappers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F1F0833D64C01D3201ED55E8 /* Wrappers.cpp */; };
 		A5CB995D78F94BCF8C00C86A /* RunningBackground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F62E3A027CA003300A50969B /* RunningBackground.cpp */; };
@@ -207,6 +208,8 @@
 		95347BE634F7CA82E37D69ED /* static_check.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = static_check.hpp; path = ../../../Frameworks/OF_OSX/addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/device/static_check.hpp; sourceTree = SOURCE_ROOT; };
 		96271015173D00EBF408B587 /* border_interpolate.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = border_interpolate.hpp; path = ../../../Frameworks/OF_OSX/addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/device/border_interpolate.hpp; sourceTree = SOURCE_ROOT; };
 		96DC1F8E1C02A78D00C9E697 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = bin/data/shaders; sourceTree = "<group>"; };
+		96DC1F8F1C02B89200C9E697 /* RecognizedObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RecognizedObject.cpp; sourceTree = "<group>"; };
+		96DC1F901C02B89200C9E697 /* RecognizedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecognizedObject.h; sourceTree = "<group>"; };
 		9776F7A8B7E53D864B2AEB92 /* cv.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cv.h; path = ../../../Frameworks/OF_OSX/addons/ofxOpenCv/libs/opencv/include/opencv/cv.h; sourceTree = SOURCE_ROOT; };
 		98C3DFDB71D0D8FE58C60906 /* cxmisc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = cxmisc.h; path = ../../../Frameworks/OF_OSX/addons/ofxOpenCv/libs/opencv/include/opencv/cxmisc.h; sourceTree = SOURCE_ROOT; };
 		98EF2B09655ABBB127BA1585 /* result_set.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = result_set.h; path = ../../../Frameworks/OF_OSX/addons/ofxOpenCv/libs/opencv/include/opencv2/flann/result_set.h; sourceTree = SOURCE_ROOT; };
@@ -940,6 +943,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
+				96DC1F8F1C02B89200C9E697 /* RecognizedObject.cpp */,
+				96DC1F901C02B89200C9E697 /* RecognizedObject.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1100,6 +1105,7 @@
 				92CED5F9607D9992C96F4BA6 /* ofxSlider.cpp in Sources */,
 				67530C290718EC5B65342F59 /* ofxSliderGroup.cpp in Sources */,
 				B65B1884DD371A238EC7635B /* ofxToggle.cpp in Sources */,
+				96DC1F911C02B89200C9E697 /* RecognizedObject.cpp in Sources */,
 				2142C0F6F54F7BB6C039E852 /* ofxJSONElement.cpp in Sources */,
 				C963A84B20D03980EAE83B08 /* jsoncpp.cpp in Sources */,
 				E0BDFB66BF066C32C4480314 /* ofxCvColorImage.cpp in Sources */,

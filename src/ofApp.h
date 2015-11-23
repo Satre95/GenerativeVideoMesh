@@ -56,7 +56,7 @@ class ofApp : public ofBaseApp{
     //Open CV stuff
     ofxCv::ObjectFinder faceFinder;
     ofImage faceImage;
-    
+    vector<ofPlanePrimitive> faceMeshes;
     
     
     

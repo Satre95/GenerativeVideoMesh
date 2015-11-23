@@ -59,11 +59,14 @@ void ofApp::update(){
     if (videoGrabber.isFrameNew()) {
         faceFinder.update(videoGrabber);
         if (faceFinder.size() > 0) {
-            cv::Rect roi = toCv(faceFinder.getObject(0));
-            Mat camMat = toCv(videoGrabber);
-            Mat croppedCamMat(camMat, roi);
-            resize(croppedCamMat, faceImage);
-            faceImage.update();
+            for( int i = 0; i < faceFinder.size(); i++ ) {
+                cv::Rect roi = toCv(faceFinder.getObject(i));
+                Mat camMat = toCv(videoGrabber);
+                Mat croppedCamMat(camMat, roi);
+                resize(croppedCamMat, faceImage);
+                faceImage.update();
+            }
+            
         }
     }
     

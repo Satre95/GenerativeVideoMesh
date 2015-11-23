@@ -1,5 +1,9 @@
 #include "ofApp.h"
 
+using namespace ofxCv;
+using namespace cv;
+
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetVerticalSync(true);
@@ -7,7 +11,7 @@ void ofApp::setup(){
     ofBackground(66,66,66);
     
     videoGrabberHeight = ofGetHeight();
-    videoGrabberWidth = ofGetWidth() / 2;
+    videoGrabberWidth = ofGetWidth();
     
 
     //Init the video grabber
@@ -16,23 +20,23 @@ void ofApp::setup(){
 
     //Init the video grabber
     planeFbo.allocate(ofGetWidth(), ofGetHeight());
-    sphereFbo.allocate(videoGrabberWidth, videoGrabberHeight);
+//    sphereFbo.allocate(videoGrabberWidth, videoGrabberHeight);
     //init the shader
     shader.load("shaders/shader.vert", "shaders/shader.frag");
     
-    plane.set(videoGrabberWidth, videoGrabberHeight,80, 80);
+    plane.set(videoGrabberWidth, videoGrabberHeight,120, 120);
     plane.mapTexCoordsFromTexture(videoGrabber.getTexture());
     
+    faceFinder.setup("haarcascade_frontalface_default.xml");
+    faceFinder.setPreset(ObjectFinder::Fast);
+    faceImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
+    
+    
+    
+    /*
     sphere.setRadius(max(videoGrabberWidth , videoGrabberHeight) / 2.0f);
     sphere.setResolution(600);
     sphere.mapTexCoordsFromTexture(videoGrabber.getTexture());
-    
-    vector <ofSerialDeviceInfo> deviceList = serialPort.getDeviceList();
-//    serialPort.setup(deviceList[0].getDeviceName(), 9600);
-//    serialPort.flush();
-    
-    arduino.connect(deviceList[0].getDeviceName());
-//    ofLogNotice() << "Arduino Initialized: " << arduino.isInitialized();
     
     ofxJSONElement forecastPayload;
     string requestURL = forecastURL + latitude + "," + longitude + "," + to_string(ofGetUnixTime());;
@@ -46,13 +50,24 @@ void ofApp::setup(){
     } else {
         ofLogNotice() << "Failed to parse JSON";
     }
+    */
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     videoGrabber.update();
+    if (videoGrabber.isFrameNew()) {
+        faceFinder.update(videoGrabber);
+        if (faceFinder.size() > 0) {
+            cv::Rect roi = toCv(faceFinder.getObject(0));
+            Mat camMat = toCv(videoGrabber);
+            Mat croppedCamMat(camMat, roi);
+            resize(croppedCamMat, faceImage);
+            faceImage.update();
+        }
+    }
     
-    scale = readScaleFromSerialPort();
+//    scale = readScaleFromSerialPort();
     
     //calculate noise
     float noiseX = ofMap(mouseX, 0, ofGetWidth(), 0, 0.1);
@@ -65,8 +80,13 @@ void ofApp::update(){
 
 //-------------------------------------------------------------
 void ofApp::draw(){
-    drawPlaneMesh();
+//    drawPlaneMesh();
 //    drawSphereMesh();
+    
+    videoGrabber.draw(0, 0);
+    faceFinder.draw();
+//    faceImage.draw(0, 0);
+    
     
     //Show the FPS
     ofSetColor(255);
@@ -107,38 +127,6 @@ void ofApp::drawPlaneMesh() {
     planeFbo.draw(0, 0);
 }
 
-void ofApp::drawSphereMesh() {
-    sphereFbo.begin();
-
-    videoGrabber.getTexture().bind();
-    
-    
-    ofClear(0, 0, 0);
-    ofColor centerColor = ofColor(85, 78, 68);
-    ofColor edgeColor(0, 0, 0);
-    ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
-    
-    
-    easyCam.begin();
-    
-    shader.begin();
-    
-    shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
-    
-    sphere.drawVertices();
-//    sphere.drawWireframe();
-    
-    
-    shader.end();
-    
-    //    videoGrabber.draw(0, 0);
-    
-    easyCam.end();
-    //    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight() / 2);
-    sphereFbo.end();
-    sphereFbo.draw(0, 0);
-}
-
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if (key == 's' || key == 'S') {
@@ -158,21 +146,55 @@ void ofApp::keyPressed(int key){
     
 }
 
+/*
 int ofApp::readScaleFromSerialPort() {
-//    float scale = serialPort.readByte();
-//    ofLogNotice() << "Scale: " << scale << "\n";
-//    return scale;
-    /*
+    float scale = serialPort.readByte();
+    ofLogNotice() << "Scale: " << scale << "\n";
+    return scale;
     if (arduino.isArduinoReady()) {
         arduino.update();
         int currScale = arduino.getAnalog(0);
         ofLogNotice() << "Scale: " << currScale << "\n";
         return currScale;
     }
-    */
     
     return 1;
 }
+*/
+
+/*
+void ofApp::drawSphereMesh() {
+    sphereFbo.begin();
+    
+    videoGrabber.getTexture().bind();
+    
+    
+    ofClear(0, 0, 0);
+    ofColor centerColor = ofColor(85, 78, 68);
+    ofColor edgeColor(0, 0, 0);
+    ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
+    
+    
+    easyCam.begin();
+    
+    shader.begin();
+    
+    shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
+    
+    sphere.drawVertices();
+    //    sphere.drawWireframe();
+    
+    
+    shader.end();
+    
+    //    videoGrabber.draw(0, 0);
+    
+    easyCam.end();
+    //    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight() / 2);
+    sphereFbo.end();
+    sphereFbo.draw(0, 0);
+}
+*/
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){

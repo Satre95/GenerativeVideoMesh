@@ -1,0 +1,72 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3F74FBCFFCA3563EBB833122E757AC0F4412785C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6D6FDB373C9A9EB614FB047E30EC71CD5377F13C" : 0,
+    "CA29DB320F881B85D76220FC5498A4D1FA4F037C" : 0,
+    "6DBA07F83F7AF99DB5F116332E6446603283BF4C" : 0,
+    "CC64F4963C935629E4EEDB8221C0DA9B68D2313F" : 0,
+    "CE427DFEAC7CF46E0343E32288BC15C14F0689BB" : 0,
+    "5DB7C332A3A89035E93556A2A38BF414005BA671" : 0,
+    "3F74FBCFFCA3563EBB833122E757AC0F4412785C" : 0,
+    "4401B78D6A43C47BEBBD941DAE88FAC3E6BE9980" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0EF60246-39EB-4564-9C78-00F6EDE41430",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6D6FDB373C9A9EB614FB047E30EC71CD5377F13C" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxSSLManager",
+    "CA29DB320F881B85D76220FC5498A4D1FA4F037C" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxIO",
+    "6DBA07F83F7AF99DB5F116332E6446603283BF4C" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxHTTP",
+    "CC64F4963C935629E4EEDB8221C0DA9B68D2313F" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxMediaType",
+    "CE427DFEAC7CF46E0343E32288BC15C14F0689BB" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxTaskQueue",
+    "5DB7C332A3A89035E93556A2A38BF414005BA671" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxJSON",
+    "3F74FBCFFCA3563EBB833122E757AC0F4412785C" : "GenerativeVideoMesh\/",
+    "4401B78D6A43C47BEBBD941DAE88FAC3E6BE9980" : "..\/..\/Frameworks\/OF_OSX\/addons\/ofxNetworkUtils"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "GenerativeVideoMesh",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "GenerativeVideoMesh.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Satre95\/GenerativeVideoMesh.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3F74FBCFFCA3563EBB833122E757AC0F4412785C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:bakercp\/ofxNetworkUtils.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4401B78D6A43C47BEBBD941DAE88FAC3E6BE9980"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:jefftimesten\/ofxJSON.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5DB7C332A3A89035E93556A2A38BF414005BA671"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:bakercp\/ofxSSLManager.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6D6FDB373C9A9EB614FB047E30EC71CD5377F13C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:bakercp\/ofxHTTP.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6DBA07F83F7AF99DB5F116332E6446603283BF4C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:bakercp\/ofxIO.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CA29DB320F881B85D76220FC5498A4D1FA4F037C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:bakercp\/ofxMediaType.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CC64F4963C935629E4EEDB8221C0DA9B68D2313F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:bakercp\/ofxTaskQueue.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CE427DFEAC7CF46E0343E32288BC15C14F0689BB"
+    }
+  ]
+}

@@ -31,6 +31,10 @@ void ofApp::setup(){
     faceFinder.setPreset(ObjectFinder::Fast);
     faceImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
     
+    //Set up the array of recognized objects that will be drawn.
+    for (int i = 0; i < MAX_NUMBER_OF_RECOGNIZED_OBJECTS; i++) {
+        recognizedObjects.push_back(RecognizedObject());
+    }
     
     
     /*
@@ -60,15 +64,15 @@ void ofApp::update(){
         faceFinder.update(videoGrabber);
         if (faceFinder.size() > 0) {
             for( int i = 0; i < faceFinder.size(); i++ ) {
-                cv::Rect roi = toCv(faceFinder.getObject(i));
+                cv::Rect roi = toCv(faceFinder.getObject(0));
                 Mat camMat = toCv(videoGrabber);
-                Mat croppedCamMat(camMat, roi);
-                resize(croppedCamMat, faceImage);
-                faceImage.update();
+                recognizedObjects[i].updateImageWithObjectRect(roi, camMat);
             }
             
         }
     }
+    numberOfRecognizedObjects = faceFinder.size();
+    
     
 //    scale = readScaleFromSerialPort();
     
@@ -83,13 +87,20 @@ void ofApp::update(){
 
 //-------------------------------------------------------------
 void ofApp::draw(){
+    
+    ofClear(0, 0, 0);
+    ofColor centerColor = ofColor(85, 78, 68);
+    ofColor edgeColor(0, 0, 0);
+    ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
 //    drawPlaneMesh();
 //    drawSphereMesh();
     
-    videoGrabber.draw(0, 0);
-    faceFinder.draw();
+//    videoGrabber.draw(0, 0);
+//    faceFinder.draw();
 //    faceImage.draw(0, 0);
-    
+    for (int i = 0; i < numberOfRecognizedObjects; i++) {
+        recognizedObjects[i].draw();
+    }
     
     //Show the FPS
     ofSetColor(255);

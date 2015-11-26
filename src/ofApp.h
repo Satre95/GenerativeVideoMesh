@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxJSON.h"
 #include "ofxCv.h"
+#include "RecognizedObject.h"
 
 class ofApp : public ofBaseApp{
 
@@ -56,7 +57,9 @@ class ofApp : public ofBaseApp{
     //Open CV stuff
     ofxCv::ObjectFinder faceFinder;
     ofImage faceImage;
-    vector<ofPlanePrimitive> faceMeshes;
+    vector<RecognizedObject> recognizedObjects;
+    static const int MAX_NUMBER_OF_RECOGNIZED_OBJECTS = 10;
+    int numberOfRecognizedObjects = 0;
     
     
     

@@ -39,6 +39,7 @@ class ofApp : public ofBaseApp{
     
     ofFbo planeFbo;
     ofFbo sphereFbo;
+    ofFbo cvObjectsFbo;
     
     ofPlanePrimitive plane;
     ofSpherePrimitive sphere;

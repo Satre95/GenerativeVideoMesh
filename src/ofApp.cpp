@@ -19,8 +19,10 @@ void ofApp::setup(){
     videoGrabber.initGrabber(videoGrabberWidth, videoGrabberHeight);
 
     //Init the video grabber
-    planeFbo.allocate(ofGetWidth(), ofGetHeight());
+//    planeFbo.allocate(ofGetWidth(), ofGetHeight());
 //    sphereFbo.allocate(videoGrabberWidth, videoGrabberHeight);
+    cvObjectsFbo.allocate(ofGetWidth(), ofGetHeight());
+    
     //init the shader
     shader.load("shaders/shader.vert", "shaders/shader.frag");
     
@@ -72,7 +74,7 @@ void ofApp::update(){
         }
     }
     numberOfRecognizedObjects = faceFinder.size();
-    
+    ofLogNotice() << "Recognized Objects: " << numberOfRecognizedObjects << "\n";
     
 //    scale = readScaleFromSerialPort();
     
@@ -87,20 +89,21 @@ void ofApp::update(){
 
 //-------------------------------------------------------------
 void ofApp::draw(){
-    
+    cvObjectsFbo.begin();
     ofClear(0, 0, 0);
     ofColor centerColor = ofColor(85, 78, 68);
     ofColor edgeColor(0, 0, 0);
     ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
-//    drawPlaneMesh();
-//    drawSphereMesh();
+
     
-//    videoGrabber.draw(0, 0);
+
 //    faceFinder.draw();
 //    faceImage.draw(0, 0);
     for (int i = 0; i < numberOfRecognizedObjects; i++) {
         recognizedObjects[i].draw();
     }
+    cvObjectsFbo.end();
+    cvObjectsFbo.draw(0, 0);
     
     //Show the FPS
     ofSetColor(255);
@@ -145,6 +148,13 @@ void ofApp::drawPlaneMesh() {
 void ofApp::keyPressed(int key){
     if (key == 's' || key == 'S') {
         ofPixels pixels1;
+        cvObjectsFbo.readToPixels(pixels1);
+        ofImage image1;
+        image1.setFromPixels(pixels1);
+        image1.save("RecognizedObjects.png", OF_IMAGE_QUALITY_BEST);
+        
+        /*
+        ofPixels pixels1;
         planeFbo.readToPixels(pixels1);
         ofImage image1;
         image1.setFromPixels(pixels1);
@@ -156,6 +166,7 @@ void ofApp::keyPressed(int key){
         ofImage image2;
         image2.setFromPixels(pixels2);
         image2.save("Sphere.png", OF_IMAGE_QUALITY_BEST);
+         */
     }
     
 }

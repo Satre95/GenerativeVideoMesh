@@ -7,6 +7,7 @@
 //
 
 #include "RecognizedObject.h"
+#include "ofApp.h"
 
 using namespace ofxCv;
 using namespace cv;
@@ -16,8 +17,6 @@ RecognizedObject:: RecognizedObject() {
     objectImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
     plane.set(objectImage.getWidth(), objectImage.getHeight(), COLUMN_RESOLUTION, ROW_RESOLUTION);
     plane.mapTexCoordsFromTexture(objectImage.getTexture());
-    
-    
 }
 
 void RecognizedObject::updateImageWithObjectRect(cv::Rect &objectRect, cv::Mat &camMat) {
@@ -31,6 +30,7 @@ void RecognizedObject::updateImageWithObjectRect(cv::Rect &objectRect, cv::Mat &
 }
 
 void RecognizedObject::draw() {
+    objectImage.getTexture().bind();
     float x = objectRect.x;
     float y = objectRect.y;
     float width = objectRect.width;
@@ -38,10 +38,9 @@ void RecognizedObject::draw() {
     
     ofPushMatrix();
     ofTranslate(x, y);
-    objectImage.draw(0, 0, width, height);
-    plane.drawFaces();
+//    objectImage.draw(0, 0, width, height);
+    plane.drawWireframe();
     ofPopMatrix();
-    
 }
 
 

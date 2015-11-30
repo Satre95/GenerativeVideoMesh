@@ -35,7 +35,7 @@ void ofApp::setup(){
     
     //Set up the array of recognized objects that will be drawn.
     for (int i = 0; i < MAX_NUMBER_OF_RECOGNIZED_OBJECTS; i++) {
-        recognizedObjects.push_back(RecognizedObject());
+        recognizedObjects.push_back(RecognizedObject(shader));
     }
     
     
@@ -100,7 +100,8 @@ void ofApp::draw(){
 //    faceFinder.draw();
 //    faceImage.draw(0, 0);
     for (int i = 0; i < numberOfRecognizedObjects; i++) {
-        recognizedObjects[i].draw();
+//        recognizedObjects[i].draw();
+        recognizedObjects[i].drawWithShader();
     }
     cvObjectsFbo.end();
     cvObjectsFbo.draw(0, 0);

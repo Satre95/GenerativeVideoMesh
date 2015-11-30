@@ -22,9 +22,10 @@ public:
     const static int ROW_RESOLUTION = 50;
     
 //    RecognizedObject(cv::Rect & objectRect, cv::Mat & );
-    RecognizedObject();
+    RecognizedObject(ofShader shader);
     void updateImageWithObjectRect( cv:: Rect & objectRect, cv:: Mat & camMat);
     void draw();
+    void drawWithShader();
     
     ofPlanePrimitive imagePlane;
     cv::Rect objectRect;
@@ -32,6 +33,7 @@ public:
     
     ofImage objectImage;
     ofPlanePrimitive plane;
+    ofShader shader;
 	
 protected:
 

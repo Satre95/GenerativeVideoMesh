@@ -43,7 +43,7 @@ class ofApp : public ofBaseApp{
     ofPlanePrimitive plane;
     
     bool useLiveVideoStream = true;
-    int scale;
+    int scale = 20;
     
     ofSerial serialPort;
     ofArduino arduino;
@@ -53,6 +53,8 @@ class ofApp : public ofBaseApp{
     string longitude = "-71.055414";
     
     float rotateAngle = 0.0;
+    
+    int lastKeyPressed = 0;
     
     //--------------------
     //Open CV stuff

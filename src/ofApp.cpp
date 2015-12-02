@@ -13,6 +13,7 @@ void ofApp::setup(){
     videoGrabberHeight = ofGetHeight();
     videoGrabberWidth = ofGetWidth();
     
+    easyCam.setVFlip(true);
 
     //Init the video grabber
     videoGrabber.setVerbose(false);
@@ -31,6 +32,8 @@ void ofApp::setup(){
     faceFinder.setup("haarcascade_frontalface_default.xml");
 //    faceFinder.setup("haarcascade_lowerbody.xml");
     faceFinder.setPreset(ObjectFinder::Fast);
+    faceFinder.setCannyPruning(true);
+
     faceImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
     
     //Set up the array of recognized objects that will be drawn.
@@ -72,35 +75,41 @@ void ofApp::update(){
 
 //-------------------------------------------------------------
 void ofApp::draw(){
-
-    cvObjectsFbo.begin();
     ofClear(0, 0, 0);
     ofColor centerColor = ofColor(85, 78, 68);
     ofColor edgeColor(0, 0, 0);
     ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
+    
+    easyCam.begin();
+    ofTranslate(-ofGetWidth() / 2, -ofGetHeight() / 2);
+//    cvObjectsFbo.begin();
+    
 
 //    videoGrabber.draw(0, 0, ofGetWidth(), ofGetHeight());
 
 
 //    faceFinder.draw();
 //    faceImage.draw(0, 0);
+    
     for (int i = 0; i < numberOfRecognizedObjects; i++) {
 //        recognizedObjects[i].draw();
         recognizedObjects[i].drawWithShader();
     }
-    cvObjectsFbo.end();
-    
-    cvObjectsFbo.draw(0, 0);
-    
-    
+//    cvObjectsFbo.end();
+//    cvObjectsFbo.draw(0, 0);
+    easyCam.end();
+
     //Show the FPS
     ofSetColor(255);
-    string msg = "FPS: " + ofToString(ofGetFrameRate(), 2);
-    ofDrawBitmapString(msg, 10, 20);
+    string frameRateString = "FPS: " + ofToString(ofGetFrameRate(), 2);
+    ofDrawBitmapString(frameRateString, 10, 20);
+    string scaleString = "Distortion Scale: " + ofToString(scale);
+    ofDrawBitmapString(scaleString, 10, 40);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    lastKeyPressed = key;
     if (key == 's' || key == 'S') {
         ofPixels pixels1;
         cvObjectsFbo.readToPixels(pixels1);
@@ -124,11 +133,16 @@ void ofApp::keyPressed(int key){
          */
     }
     
+    else if( key == OF_KEY_UP) {
+        scale = (scale >= 100) ? scale : scale + 5;
+    } else if( key == OF_KEY_DOWN) {
+        scale = (scale <= 0) ? scale : scale - 5;
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-    
 }
 
 //--------------------------------------------------------------
@@ -138,7 +152,7 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    
+ 
 }
 
 //--------------------------------------------------------------

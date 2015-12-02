@@ -144,7 +144,7 @@ vec4 calculate2DNoiseDisplacementVector( vec4 tex1) {
 vec4 calculate3DNoiseDisplacementVector( vec4 tex1 ) {
     float noiseScale = 100.0;
     float noiseStrength = 100.0;
-    float scale = 60;
+    float scale = 30;
     
     
     vec3 noiseVecX = vec3( tex1.r/noiseScale, texcoord.x/noiseScale, elapsedTime/noiseScale);
@@ -165,6 +165,17 @@ vec4 calculate3DNoiseDisplacementVector( vec4 tex1 ) {
 
 vec4 modifyDisplacementVectorWithPosition( vec4 displacement, vec4 position ) {
     return displacement / position;
+}
+
+float rand( float x) {
+    return fract(sin(x)*1000000.0);
+}
+
+float noise(float x) {
+    float i = floor( x);
+    float f = fract( x );
+    
+    return mix( rand(i), rand(i + 1.0), smoothstep(0., 1., f));
 }
 
 void main()

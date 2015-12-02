@@ -71,14 +71,13 @@ void RecognizedObject::drawWithShader() {
     shader.begin();
     shader.setUniform1f("elapsedTime", ofGetElapsedTimef());
     float scale = ((ofApp *) ofGetAppPtr())->scale;
-    float constrainedScale = ofClamp(scale, 1, 1023);
-    float mappedScale = ofMap(constrainedScale, 1, 1023, 1, 100);
-    shader.setUniform1f("scale", mappedScale);
+    shader.setUniform1f("scale", scale);
     
     ofPushMatrix();
     ofTranslate(x, y);
     //    objectImage.draw(0, 0, width, height);
     plane.drawWireframe();
+//    plane.drawFaces();
     ofPopMatrix();
     shader.end();
 }

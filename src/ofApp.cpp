@@ -18,24 +18,24 @@ void ofApp::setup(){
     videoGrabber.setVerbose(false);
     videoGrabber.initGrabber(videoGrabberWidth, videoGrabberHeight);
 
+    //Load the default image, used in the case that videograbber doesn't work correctly.
+    defaultImage.load("defaultImage.jpg");
+    
     //Init the video grabber
-//    planeFbo.allocate(ofGetWidth(), ofGetHeight());
-//    sphereFbo.allocate(videoGrabberWidth, videoGrabberHeight);
     cvObjectsFbo.allocate(ofGetWidth(), ofGetHeight());
     
     //init the shader
     shader.load("shaders/shader.vert", "shaders/shader.frag");
     
-    plane.set(videoGrabberWidth, videoGrabberHeight,120, 120);
-    plane.mapTexCoordsFromTexture(videoGrabber.getTexture());
     
-    faceFinder.setup("haarcascade_frontalface_default.xml");
+//    faceFinder.setup("haarcascade_frontalface_default.xml");
+    faceFinder.setup("haarcascade_lowerbody.xml");
     faceFinder.setPreset(ObjectFinder::Fast);
     faceImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
     
     //Set up the array of recognized objects that will be drawn.
     for (int i = 0; i < MAX_NUMBER_OF_RECOGNIZED_OBJECTS; i++) {
-        recognizedObjects.push_back(RecognizedObject(shader));
+        recognizedObjects.push_back(RecognizedObject("shaders/shader.vert", "shaders/shader.frag"));
     }
     
     
@@ -66,13 +66,15 @@ void ofApp::update(){
         faceFinder.update(videoGrabber);
         if (faceFinder.size() > 0) {
             for( int i = 0; i < faceFinder.size(); i++ ) {
-                cv::Rect roi = toCv(faceFinder.getObject(0));
+                cv::Rect roi = toCv(faceFinder.getObject(i));
                 Mat camMat = toCv(videoGrabber);
-                recognizedObjects[i].updateImageWithObjectRect(roi, camMat);
+                recognizedObjects[i].updateImageWithObjectRectFromCamera(roi, camMat);
             }
             
         }
     }
+    
+    
     numberOfRecognizedObjects = faceFinder.size();
     ofLogNotice() << "Recognized Objects: " << numberOfRecognizedObjects << "\n";
     
@@ -89,13 +91,15 @@ void ofApp::update(){
 
 //-------------------------------------------------------------
 void ofApp::draw(){
+
     cvObjectsFbo.begin();
     ofClear(0, 0, 0);
     ofColor centerColor = ofColor(85, 78, 68);
     ofColor edgeColor(0, 0, 0);
     ofBackgroundGradient(centerColor, edgeColor, OF_GRADIENT_CIRCULAR);
 
-    
+//    videoGrabber.draw(0, 0, ofGetWidth(), ofGetHeight());
+
 
 //    faceFinder.draw();
 //    faceImage.draw(0, 0);
@@ -104,14 +108,16 @@ void ofApp::draw(){
         recognizedObjects[i].drawWithShader();
     }
     cvObjectsFbo.end();
+    
     cvObjectsFbo.draw(0, 0);
+    
     
     //Show the FPS
     ofSetColor(255);
     string msg = "FPS: " + ofToString(ofGetFrameRate(), 2);
     ofDrawBitmapString(msg, 10, 20);
 }
-
+/*
 void ofApp::drawPlaneMesh() {
     planeFbo.begin();
     videoGrabber.getTexture().bind();
@@ -144,6 +150,7 @@ void ofApp::drawPlaneMesh() {
 //    planeFbo.draw(0, 0, ofGetWidth() / 2, ofGetHeight());
     planeFbo.draw(0, 0);
 }
+*/
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){

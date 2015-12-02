@@ -38,11 +38,9 @@ class ofApp : public ofBaseApp{
     ofShader shader;
     
     ofFbo planeFbo;
-    ofFbo sphereFbo;
     ofFbo cvObjectsFbo;
     
     ofPlanePrimitive plane;
-    ofSpherePrimitive sphere;
     
     bool useLiveVideoStream = true;
     int scale;
@@ -54,6 +52,8 @@ class ofApp : public ofBaseApp{
     string latitude = "42.375374";
     string longitude = "-71.055414";
     
+    float rotateAngle = 0.0;
+    
     //--------------------
     //Open CV stuff
     ofxCv::ObjectFinder faceFinder;
@@ -61,6 +61,7 @@ class ofApp : public ofBaseApp{
     vector<RecognizedObject> recognizedObjects;
     static const int MAX_NUMBER_OF_RECOGNIZED_OBJECTS = 10;
     int numberOfRecognizedObjects = 0;
+    ofImage defaultImage;
     
     
     

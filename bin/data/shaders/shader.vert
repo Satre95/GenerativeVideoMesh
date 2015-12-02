@@ -144,7 +144,7 @@ vec4 calculate2DNoiseDisplacementVector( vec4 tex1) {
 vec4 calculate3DNoiseDisplacementVector( vec4 tex1 ) {
     float noiseScale = 100.0;
     float noiseStrength = 100.0;
-    float scale = 40;
+    float scale = 30;
     
     
     vec3 noiseVecX = vec3( tex1.r/noiseScale, texcoord.x/noiseScale, elapsedTime/noiseScale);

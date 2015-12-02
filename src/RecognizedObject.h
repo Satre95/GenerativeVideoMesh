@@ -18,12 +18,13 @@ Class is used to encapsulate information about a contour object that has been re
 class RecognizedObject{
 
 public:
-    const static int COLUMN_RESOLUTION = 50;
-    const static int ROW_RESOLUTION = 50;
+    const static int COLUMN_RESOLUTION = 100;
+    const static int ROW_RESOLUTION = 100;
     
 //    RecognizedObject(cv::Rect & objectRect, cv::Mat & );
     RecognizedObject(ofShader shader);
-    void updateImageWithObjectRect( cv:: Rect & objectRect, cv:: Mat & camMat);
+    RecognizedObject(const string vertexShaderPath, const string fragmentShaderPath);
+    void updateImageWithObjectRectFromCamera( cv:: Rect & objectRect, cv:: Mat & camMat);
     void draw();
     void drawWithShader();
     

@@ -21,7 +21,15 @@ RecognizedObject:: RecognizedObject(ofShader shader) {
     this->shader = shader;
 }
 
-void RecognizedObject::updateImageWithObjectRect(cv::Rect &objectRect, cv::Mat &camMat) {
+RecognizedObject:: RecognizedObject(const string vertexShaderPath, const string fragmentShaderPath) {
+    objectImage.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
+    plane.set(objectImage.getWidth(), objectImage.getHeight(), COLUMN_RESOLUTION, ROW_RESOLUTION);
+    plane.mapTexCoordsFromTexture(objectImage.getTexture());
+    
+    shader.load(vertexShaderPath, fragmentShaderPath);
+}
+
+void RecognizedObject::updateImageWithObjectRectFromCamera(cv::Rect &objectRect, cv::Mat &camMat) {
     this->objectRect = objectRect;
     this->camMat = camMat;
     Mat croppedCamMat(camMat, objectRect);
@@ -48,8 +56,8 @@ void RecognizedObject::draw() {
     
     ofPushMatrix();
     ofTranslate(x, y);
-//    objectImage.draw(0, 0, width, height);
-    plane.drawWireframe();
+    objectImage.draw(0, 0, width, height);
+//    plane.drawWireframe();
     ofPopMatrix();
 }
 

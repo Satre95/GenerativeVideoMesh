@@ -76,8 +76,8 @@ void RecognizedObject::drawWithShader() {
     ofPushMatrix();
     ofTranslate(x, y);
     //    objectImage.draw(0, 0, width, height);
-    plane.drawWireframe();
-//    plane.drawFaces();
+//    plane.drawWireframe();
+    plane.drawFaces();
     ofPopMatrix();
     shader.end();
 }
